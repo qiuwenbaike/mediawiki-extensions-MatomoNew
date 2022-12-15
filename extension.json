@@ -5,7 +5,8 @@
 		"Isb1009",
 		"[http://www.daschmedia.de DaSch]",
 		"[https://www.mediawiki.org/wiki/User:Seb35 Seb35]",
-		"[https://github.com/YOUR1 Youri van den Bogert]"
+		"[https://github.com/YOUR1 Youri van den Bogert]",
+		"Qiuwen Baike Contributors"
 	],
 	"url": "https://www.mediawiki.org/wiki/Extension:Matomo",
 	"description": "Adding Matomo Tracking Code",
@@ -29,7 +30,7 @@
 		"MatomoJSFileURL": null
 	},
 	"Hooks": {
-		"SkinAfterBottomScripts": [
+		"BeforePageDisplay": [
 			"MediaWiki\\Extension\\Matomo\\Hooks::MatomoSetup"
 		],
 		"SpecialSearchResults": [
