@@ -203,19 +203,7 @@ class Hooks {
 
 		// Matomo script
 		$script = <<<MATOMO
-		<script type="text/javascript">
-		var _paq = _paq || [];{$disableCookiesStr}{$customJs}
-		_paq.push(["{$trackingType}"{$jsTrackingSearch}]);
-		_paq.push(["enableLinkTracking"]);
-
-		(function() {
-			var u = (("https:" == document.location.protocol) ? "https" : "http") + "://"{$jsMatomoURLCommon};
-			_paq.push(["setTrackerUrl", u{$jsMatomoURL}+"piwik.php"]);
-			_paq.push(["setSiteId", "{$idSite}"]);
-			var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
-			g.defer=true; g.async=true; g.src=u+{$jsMatomoJSFileURL}; s.parentNode.insertBefore(g,s);
-		})();
-		</script>
+		<script type="text/javascript">var _paq=_paq||[];{$disableCookiesStr}{$customJs}_paq.push(["{$trackingType}"{$jsTrackingSearch}]);_paq.push(["enableLinkTracking"]);(function(){var u=(("https:"==document.location.protocol)?"https":"http")+"://"{$jsMatomoURLCommon};_paq.push(["setTrackerUrl",u{$jsMatomoURL}+"piwik.php"]);_paq.push(["setSiteId","{$idSite}"]);var d=document,g=d.createElement("script"),s=d.getElementsByTagName("script")[0];g.type="text/javascript";g.defer=true;g.async=true;g.src=u+{$jsMatomoJSFileURL};s.parentNode.insertBefore(g,s)})();</script>
 		<noscript><img src="{$protocol}://{$matomoURL}/piwik.php?idsite={$idSite}&rec=1{$urlTrackingSearch}" width="1" height="1" alt="" /></noscript>
 		MATOMO;
 
