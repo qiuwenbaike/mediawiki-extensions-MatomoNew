@@ -116,7 +116,7 @@ class Hooks {
 
 		// Check if disablecookies flag
 		if ( self::getParameter( 'DisableCookies' ) ) {
-			$disableCookiesStr = PHP_EOL . '  _paq.push(["disableCookies"]);';
+			$disableCookiesStr = PHP_EOL . '_paq.push(["disableCookies"]);';
 		} else { $disableCookiesStr = null;
 		}
 
@@ -171,7 +171,7 @@ class Hooks {
 		// records.
 		if ( self::getParameter( 'TrackUsernames' ) && $user->isRegistered() ) {
 			$username = Xml::encodeJsVar( $user->getName() );
-			$customJs .= PHP_EOL . "  _paq.push([\"setUserId\",{$username}]);";
+			$customJs .= PHP_EOL . "_paq.push([\"setUserId\",{$username}]);";
 		}
 
 		// Check if server uses https
