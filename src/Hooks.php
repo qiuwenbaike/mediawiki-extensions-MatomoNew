@@ -23,9 +23,8 @@ class Hooks {
 	 * @param string &$text
 	 * @return bool
 	 */
-	public static function MatomoSetup( $skin, &$text = '' ) {
-		$text .= self::addMatomo( $skin->getTitle() );
-		return true;
+	public static function MatomoSetup( $skin, &$text ) {
+		$text = self::addMatomo( $skin->getTitle() );
 	}
 
 	/**
@@ -144,28 +143,28 @@ class Hooks {
 		} else { $customJs = null;
 		}
 
-	// Track search results
-	$trackingType = 'trackPageView';
-	$jsTrackingSearch = '';
-	$urlTrackingSearch = '';
-	if ( self::$searchTerm !== null ) {
-		// JavaScript
-		$trackingType = 'trackSiteSearch';
-		$jsTerm = Xml::encodeJsVar( self::$searchTerm );
-		$jsCategory = self::$searchProfile === null ? 'false' : Xml::encodeJsVar( self::$searchProfile );
-		$jsResultsCount = self::$searchCount === null ? 'false' : self::$searchCount;
-		$jsTrackingSearch = ",$jsTerm,$jsCategory,$jsResultsCount";
+		// Track search results
+		$trackingType = 'trackPageView';
+		$jsTrackingSearch = '';
+		$urlTrackingSearch = '';
+		if ( self::$searchTerm !== null ) {
+			// JavaScript
+			$trackingType = 'trackSiteSearch';
+			$jsTerm = Xml::encodeJsVar( self::$searchTerm );
+			$jsCategory = self::$searchProfile === null ? 'false' : Xml::encodeJsVar( self::$searchProfile );
+			$jsResultsCount = self::$searchCount === null ? 'false' : self::$searchCount;
+			$jsTrackingSearch = ",$jsTerm,$jsCategory,$jsResultsCount";
 
-		// URL
-		$urlTrackingSearch = [ 'search' => self::$searchTerm ];
-		if ( self::$searchProfile !== null ) {
-			$urlTrackingSearch += [ 'search_cat' => self::$searchProfile ];
+			// URL
+			$urlTrackingSearch = [ 'search' => self::$searchTerm ];
+			if ( self::$searchProfile !== null ) {
+				$urlTrackingSearch += [ 'search_cat' => self::$searchProfile ];
+			}
+			if ( self::$searchCount !== null ) {
+				$urlTrackingSearch += [ 'search_count' => self::$searchCount ];
+			}
+			$urlTrackingSearch = '&' . wfArrayToCgi( $urlTrackingSearch );
 		}
-		if ( self::$searchCount !== null ) {
-			$urlTrackingSearch += [ 'search_count' => self::$searchCount ];
-		}
-		$urlTrackingSearch = '&' . wfArrayToCgi( $urlTrackingSearch );
-	}
 
 		// Track username based on https://matomo.org/docs/user-id/ The user
 		// name for anonymous visitors is their IP address which Matomo already
@@ -204,26 +203,21 @@ class Hooks {
 
 		// Matomo script
 		$script = <<<MATOMO
-<!-- Matomo -->
-<script type="text/javascript">
-  var _paq = _paq || [];{$disableCookiesStr}{$customJs}
-  _paq.push(["{$trackingType}"{$jsTrackingSearch}]);
-  _paq.push(["enableLinkTracking"]);
+		<script type="text/javascript">
+		var _paq = _paq || [];{$disableCookiesStr}{$customJs}
+		_paq.push(["{$trackingType}"{$jsTrackingSearch}]);
+		_paq.push(["enableLinkTracking"]);
 
-  (function() {
-    var u = (("https:" == document.location.protocol) ? "https" : "http") + "://"{$jsMatomoURLCommon};
-    _paq.push(["setTrackerUrl", u{$jsMatomoURL}+"piwik.php"]);
-    _paq.push(["setSiteId", "{$idSite}"]);
-    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
-    g.defer=true; g.async=true; g.src=u+{$jsMatomoJSFileURL}; s.parentNode.insertBefore(g,s);
-  })();
-</script>
-<!-- End Matomo Code -->
-
-<!-- Matomo Image Tracker -->
-<noscript><img src="{$protocol}://{$matomoURL}/piwik.php?idsite={$idSite}&rec=1{$urlTrackingSearch}" style="border:0" alt="" /></noscript>
-<!-- End Matomo -->
-MATOMO;
+		(function() {
+			var u = (("https:" == document.location.protocol) ? "https" : "http") + "://"{$jsMatomoURLCommon};
+			_paq.push(["setTrackerUrl", u{$jsMatomoURL}+"piwik.php"]);
+			_paq.push(["setSiteId", "{$idSite}"]);
+			var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
+			g.defer=true; g.async=true; g.src=u+{$jsMatomoJSFileURL}; s.parentNode.insertBefore(g,s);
+		})();
+		</script>
+		<noscript><img src="{$protocol}://{$matomoURL}/piwik.php?idsite={$idSite}&rec=1{$urlTrackingSearch}" width="1" height="1" alt="" /></noscript>
+		MATOMO;
 
 		return $script;
 	}
