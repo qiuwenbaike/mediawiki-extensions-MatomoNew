@@ -138,22 +138,17 @@ class Hooks
         $finalActionName = Xml::encodeJsVar($finalActionName);
         $finalRequestUri = Xml::encodeJsVar($_SERVER["REQUEST_URI"]);
 
-        function geturl($url)
-        {
-            $headerArray = [
-                'User-Agent: ' . $_SERVER['HTTP_USER_AGENT']
-            ];
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, $headerArray);
-            curl_setopt($ch, CURLOPT_REFERER, $_SERVER["HTTP_REFERER"]);
-            $output = curl_exec($ch);
-            curl_close($ch);
-            $output = json_decode($output, true);
-            return;
-        }
+        $headerArray = [
+            'User-Agent: ' . $_SERVER['HTTP_USER_AGENT']
+        ];
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, Xml::encodeJsVar($matomoURL . '/') . "piwik.php?udsite={$idSite}&rec=1&userid={$username}&action_name={$finalActionName}&url={$finalRequestUri}{$urlTrackingSearch}");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headerArray);
+        curl_setopt($ch, CURLOPT_REFERER, $_SERVER["HTTP_REFERER"]);
+        $output = curl_exec($ch);
+        curl_close($ch);
 
-        geturl(Xml::encodeJsVar($matomoURL . '/') . "piwik.php?udsite={$idSite}&rec=1&userid={$username}&action_name={$finalActionName}&url={$finalRequestUri}{$urlTrackingSearch}");
+        return;
     }
 }
