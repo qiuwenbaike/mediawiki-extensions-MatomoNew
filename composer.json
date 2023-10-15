@@ -1,67 +1,72 @@
 {
-	"name": "mediawiki/matomo",
-	"type": "mediawiki-extension",
-	"description": "The Matomo (ex-Piwik) extension inserts your Matomo tracking code to the bottom of every page.",
-	"keywords": [
-		"Piwik",
-		"Matomo",
-		"MediaWiki"
-	],
-	"homepage": "https://www.mediawiki.org/wiki/Extension:Matomo",
-	"license": "GPL-2.0-or-later",
-	"support": {
-		"issues": "https://github.com/DaSchTour/piwik-mediawiki-extension/issues",
-		"source": "https://github.com/DaSchTour/piwik-mediawiki-extension"
-	},
-	"authors": [
-		{
-                	"name": "Isb1009",
-                	"email": "isb1009@gmail.com",
-                	"role": "Developer"
-                },
-                {
-                        "name": "DaSch",
-                        "email": "dasch@daschmedia.de",
-                        "homepage": "http://www.daschmedia.de",
-                        "role": "Developer"
-                },
-                {
-                        "name": "Seb35",
-                        "homepage": "https://www.seb35.fr",
-                        "role": "Developer"
-                },
-                {
-                        "name": "Youri van den Bogert",
-                        "email": "youri@vandenbogert.eu",
-                        "homepage": "https://github.com/YOUR1",
-                        "role": "Developer"
-                }
-        ],
-	"require": {
-		"php": ">=5.3.0",
-		"composer/installers": "1.*,>=1.0.1"
-	},
-	"autoload": {
-		"psr-4": {
-			"MediaWiki\\Extension\\Matomo\\": "src/"
-		}
-	},
-	"require-dev": {
-		"mediawiki/mediawiki-codesniffer": "38.0.0",
-		"mediawiki/minus-x": "1.1.1",
-		"php-parallel-lint/php-console-highlighter": "0.5.0",
-		"php-parallel-lint/php-parallel-lint": "1.3.1"
-	},
-	"scripts": {
-		"test": [
-			"composer validate",
-			"parallel-lint . --exclude vendor --exclude node_modules",
-			"phpcs -p -s",
-			"minus-x check ."
-		],
-		"fix": [
-			"minus-x fix .",
-			"phpcbf"
-		]
-	}
+  "name": "mediawiki/matomo",
+  "type": "mediawiki-extension",
+  "description": "The Matomo (ex-Piwik) extension inserts your Matomo tracking code to the bottom of every page.",
+  "keywords": [
+    "Piwik",
+    "Matomo",
+    "MediaWiki"
+  ],
+  "homepage": "https://www.mediawiki.org/wiki/Extension:Matomo",
+  "license": "GPL-2.0-or-later",
+  "support": {
+    "issues": "https://github.com/DaSchTour/piwik-mediawiki-extension/issues",
+    "source": "https://github.com/DaSchTour/piwik-mediawiki-extension"
+  },
+  "authors": [
+    {
+      "name": "Isb1009",
+      "email": "isb1009@gmail.com",
+      "role": "Developer"
+    },
+    {
+      "name": "DaSch",
+      "email": "dasch@daschmedia.de",
+      "homepage": "http://www.daschmedia.de",
+      "role": "Developer"
+    },
+    {
+      "name": "Seb35",
+      "homepage": "https://www.seb35.fr",
+      "role": "Developer"
+    },
+    {
+      "name": "Youri van den Bogert",
+      "email": "youri@vandenbogert.eu",
+      "homepage": "https://github.com/YOUR1",
+      "role": "Developer"
+    },
+    {
+      "name": "WaitSpring",
+      "email": "me@waitspring.com",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=5.3.0",
+    "composer/installers": "1.*,>=1.0.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "MediaWiki\\Extension\\Matomo\\": "src/"
+    }
+  },
+  "require-dev": {
+    "mediawiki/mediawiki-codesniffer": "38.0.0",
+    "mediawiki/minus-x": "1.1.1",
+    "php-parallel-lint/php-console-highlighter": "0.5.0",
+    "php-parallel-lint/php-parallel-lint": "1.3.1"
+  },
+  "scripts": {
+    "test": [
+      "composer validate",
+      "parallel-lint . --exclude vendor --exclude node_modules",
+      "phpcs -p -s",
+      "minus-x check ."
+    ],
+    "fix": [
+      "minus-x fix .",
+      "phpcbf"
+    ]
+  }
 }
