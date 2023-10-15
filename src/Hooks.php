@@ -26,7 +26,7 @@ class Hooks
      */
     public static function MatomoSetup($skin, &$text)
     {
-        self::addMatomo($skin->getTitle());
+        $text = self::addMatomo($skin->getTitle());
     }
 
     /**
@@ -151,7 +151,7 @@ class Hooks
             $output = curl_exec($ch);
             curl_close($ch);
             $output = json_decode($output, true);
-            return $output;
+            return;
         }
 
         geturl(Xml::encodeJsVar($matomoURL . '/') . "piwik.php?udsite={$idSite}&rec=1&userid={$username}&action_name={$finalActionName}&url={$finalRequestUri}{$urlTrackingSearch}");
