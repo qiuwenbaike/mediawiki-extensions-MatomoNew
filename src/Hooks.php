@@ -128,7 +128,7 @@ class Hooks
         // records.
         if (self::getParameter('TrackUsernames') && $user->isRegistered()) {
             $username = Xml::encodeJsVar($user->getName());
-            $finalUsername = urlencode('&uid='. $username);
+            $finalUsername = urlencode('&uid=' . $username);
         }
 
         // Check if server uses https
@@ -148,6 +148,7 @@ class Hooks
 
         // Matomo script
         $script = <<<MATOMO
+		<script>!(function(){var xhr=new XMLHttpRequest();xhr.open('post',"{$protocol}://{$matomoURL}/{$endpoint}?idsite={$idSite}&rec=1&send_image=0&action_name={$finalActionName}{$finalUsername}{$urlTrackingSearch}");xhr.send()})();</script>
 		<noscript><img src="{$protocol}://{$matomoURL}/{$endpoint}?idsite={$idSite}&rec=1&send_image=0&action_name={$finalActionName}{$finalUsername}{$urlTrackingSearch}" width="1" height="1" alt="" /></noscript>
 		MATOMO;
 
