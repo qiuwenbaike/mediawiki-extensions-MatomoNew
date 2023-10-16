@@ -141,14 +141,21 @@ class Hooks
             }
         }
 
-        // Prevent XSS
+        // Check HTTP Referer
+        if (isset($_SERVER['HTTP_REFERER'])) {
+            $urlref = $_SERVER['HTTP_REFERER'];
+            $finalURLRef = '&urlref=' . urlencode($urlref);
+        }
+
+        // add URL encode
         $finalActionName = '&action_name=' . urlencode($finalActionName);
         $finalURL = '&url=' . urlencode($protocol . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
+        $finalRand = '&rand=' . urlencode(mt_rand(100, 100000));
 
         // Matomo script
         $script = <<<MATOMO
-		<script>!(function(){var a=new XMLHttpRequest();a.open("post","{$protocol}://{$matomoURL}/{$endpoint}?idsite={$idSite}&rec=1&send_image=1{$finalURL}{$finalActionName}{$finalUsername}{$urlTrackingSearch}");a.send()})();</script>
-		<noscript><img src="{$protocol}://{$matomoURL}/{$endpoint}?idsite={$idSite}&rec=1&send_image=1{$finalURL}{$finalActionName}{$finalUsername}{$urlTrackingSearch}" width="1" height="1" alt="" /></noscript>
+		<script>!(function(){var a=new XMLHttpRequest();a.open("post","{$protocol}://{$matomoURL}/{$endpoint}?idsite={$idSite}&rec=1&send_image=1{$finalURL}{$finalActionName}{$finalUsername}{$finalURLRef}{$urlTrackingSearch}{$finalRand}");a.send()})();</script>
+		<noscript><img src="{$protocol}://{$matomoURL}/{$endpoint}?idsite={$idSite}&rec=1&send_image=1{$finalURL}{$finalActionName}{$finalUsername}{$finalURLRef}{$urlTrackingSearch}{$finalRand}" width="1" height="1" alt="" /></noscript>
 		MATOMO;
 
         return $script;
