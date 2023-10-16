@@ -21,7 +21,7 @@
 		"MatomoURL": "",
         "MatomoEndpoint": "matomo.php",
         "MatomoIgnoreBots": true,
-		"MatomoUsePageTitle": false,
+		"MatomoUsePageTitle": true,
 		"MatomoActionName": "",
 		"MatomoDisableCookies": false,
 		"MatomoTrackUsernames": false

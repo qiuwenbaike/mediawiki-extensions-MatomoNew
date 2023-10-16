@@ -3,7 +3,6 @@
 namespace MediaWiki\Extension\Matomo;
 
 use RequestContext;
-use Xml;
 
 class Hooks
 {
@@ -127,8 +126,8 @@ class Hooks
         // name for anonymous visitors is their IP address which Matomo already
         // records.
         if (self::getParameter('TrackUsernames') && $user->isRegistered()) {
-            $username = Xml::encodeJsVar($user->getName());
-            $finalUsername = urlencode('&uid=' . $username);
+            $username = $user->getName();
+            $finalUsername = '&uid=' . urlencode($username);
         }
 
         // Check if server uses https
@@ -143,12 +142,12 @@ class Hooks
         }
 
         // Prevent XSS
-        $finalActionName = urlencode(Xml::encodeJsVar($finalActionName));
+        $finalActionName = '&action_name=' . urlencode($finalActionName);
 
         // Matomo script
         $script = <<<MATOMO
-		<script>!(function(){var xhr=new XMLHttpRequest();xhr.open('post',"{$protocol}://{$matomoURL}/{$endpoint}?idsite={$idSite}&rec=1&send_image=0&action_name={$finalActionName}{$finalUsername}{$urlTrackingSearch}");xhr.send()})();</script>
-		<noscript><img src="{$protocol}://{$matomoURL}/{$endpoint}?idsite={$idSite}&rec=1&send_image=0&action_name={$finalActionName}{$finalUsername}{$urlTrackingSearch}" width="1" height="1" alt="" /></noscript>
+		<script>!(function(){var xhr=new XMLHttpRequest();xhr.open('post',"{$protocol}://{$matomoURL}/{$endpoint}?idsite={$idSite}&rec=1&send_image=0{$finalActionName}{$finalUsername}{$urlTrackingSearch}");xhr.send()})();</script>
+		<noscript><img src="{$protocol}://{$matomoURL}/{$endpoint}?idsite={$idSite}&rec=1&send_image=0{$finalActionName}{$finalUsername}{$urlTrackingSearch}" width="1" height="1" alt="" /></noscript>
 		MATOMO;
 
         return $script;
