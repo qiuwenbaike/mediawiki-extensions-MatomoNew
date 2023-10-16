@@ -17,6 +17,7 @@
 	},
 	"config": {
 		"MatomoIDSite": "",
+        "MatomoProtocol": "auto",
 		"MatomoURL": "",
         "MatomoEndpoint": "matomo.php",
         "MatomoIgnoreBots": true,
