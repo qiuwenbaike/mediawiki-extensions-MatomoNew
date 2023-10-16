@@ -110,12 +110,6 @@ class Hooks
         // Track search results
         $urlTrackingSearch = '';
         if (self::$searchTerm !== null) {
-            // JavaScript
-            $jsTerm = Xml::encodeJsVar(self::$searchTerm);
-            $jsCategory = self::$searchProfile === null ? 'false' : Xml::encodeJsVar(self::$searchProfile);
-            $jsResultsCount = self::$searchCount === null ? 'false' : self::$searchCount;
-            $jsTrackingSearch = ",$jsTerm,$jsCategory,$jsResultsCount";
-
             // URL
             $urlTrackingSearch = ['search' => self::$searchTerm];
             if (self::$searchProfile !== null) {
@@ -126,17 +120,18 @@ class Hooks
             }
             $urlTrackingSearch = '&' . wfArrayToCgi($urlTrackingSearch);
         }
+        $urlTrackingSearch = urlencode($urlTrackingSearch);
 
         // Track username based on https://matomo.org/docs/user-id/ The user
         // name for anonymous visitors is their IP address which Matomo already
         // records.
         if (self::getParameter('TrackUsernames') && $user->isRegistered()) {
-            $username = Xml::encodeJsVar($user->getName());
+            $username = urlencode(Xml::encodeJsVar($user->getName()));
         }
 
         // Prevent XSS
-        $finalActionName = Xml::encodeJsVar($finalActionName);
-        $finalRequestUri = Xml::encodeJsVar($_SERVER["REQUEST_URI"]);
+        $finalActionName = urlencode(Xml::encodeJsVar($finalActionName));
+        $finalRequestUri = urlencode(Xml::encodeJsVar($_SERVER["REQUEST_URI"]));
 
         $headerArray = [
             'User-Agent: ' . $_SERVER['HTTP_USER_AGENT']
