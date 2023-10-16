@@ -95,7 +95,7 @@ class Hooks
         }
 
         $idSite = self::getParameter('IDSite');
-        $matomoURL = self::getParameter('URL');
+        $matomoURL = "https://" . self::getParameter('URL');
 
         // Missing configuration parameters
         if (empty($idSite) || empty($matomoURL)) {
