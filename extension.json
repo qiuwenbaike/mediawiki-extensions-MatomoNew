@@ -18,7 +18,8 @@
 	"config": {
 		"MatomoIDSite": "",
 		"MatomoURL": "",
-		"MatomoIgnoreBots": true,
+        "MatomoEndpoint": "matomo.php",
+        "MatomoIgnoreBots": true,
 		"MatomoUsePageTitle": false,
 		"MatomoActionName": "",
 		"MatomoDisableCookies": false,

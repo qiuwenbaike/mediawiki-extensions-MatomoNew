@@ -84,22 +84,24 @@ class Hooks
     /**
      * Add Matomo script
      * @param string $title
-     * @return string|null
+     * @return string
      */
     public static function addMatomo($title)
     {
         $user = RequestContext::getMain()->getUser();
         // Is Matomo disabled for bots?
         if ($user->isAllowed('bot') && self::getParameter('IgnoreBots')) {
-            return;
+            return '<!-- Matomo extension is disabled for bots -->';
         }
 
         $idSite = self::getParameter('IDSite');
-        $matomoURL = "https://" . self::getParameter('URL');
+        $matomoURL = self::getParameter('URL');
+        $protocol = self::getParameter('Protocol');
+        $endpoint = self::getParameter('Endpoint');
 
         // Missing configuration parameters
         if (empty($idSite) || empty($matomoURL)) {
-            return;
+            return '<!-- You need to set the settings for Matomo -->';
         }
 
         $finalActionName = self::getParameter('ActionName');
@@ -120,30 +122,35 @@ class Hooks
             }
             $urlTrackingSearch = '&' . wfArrayToCgi($urlTrackingSearch);
         }
-        $urlTrackingSearch = urlencode($urlTrackingSearch);
 
         // Track username based on https://matomo.org/docs/user-id/ The user
         // name for anonymous visitors is their IP address which Matomo already
         // records.
         if (self::getParameter('TrackUsernames') && $user->isRegistered()) {
-            $username = urlencode(Xml::encodeJsVar($user->getName()));
+            $username = Xml::encodeJsVar($user->getName());
+            $finalUsername = urlencode('&uid='. $username);
+        }
+
+        // Check if server uses https
+        if ($protocol == 'auto') {
+
+            if (
+                isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) || isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'
+            ) {
+                $protocol = 'https';
+            } else {
+                $protocol = 'http';
+            }
         }
 
         // Prevent XSS
         $finalActionName = urlencode(Xml::encodeJsVar($finalActionName));
-        $finalRequestUri = urlencode(Xml::encodeJsVar($_SERVER["REQUEST_URI"]));
 
-        $headerArray = [
-            'User-Agent: ' . $_SERVER['HTTP_USER_AGENT']
-        ];
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, Xml::encodeJsVar($matomoURL . '/') . "piwik.php?udsite={$idSite}&rec=1&userid={$username}&action_name={$finalActionName}&url={$finalRequestUri}{$urlTrackingSearch}");
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headerArray);
-        curl_setopt($ch, CURLOPT_REFERER, $_SERVER["HTTP_REFERER"]);
-        $output = curl_exec($ch);
-        curl_close($ch);
+        // Matomo script
+        $script = <<<MATOMO
+		<noscript><img src="{$protocol}://{$matomoURL}/{$endpoint}?idsite={$idSite}&rec=1&send_image=0&action_name={$finalActionName}{$finalUsername}{$urlTrackingSearch}" width="1" height="1" alt="" /></noscript>
+		MATOMO;
 
-        return;
+        return $script;
     }
 }
