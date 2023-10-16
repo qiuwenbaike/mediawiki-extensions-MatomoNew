@@ -143,7 +143,7 @@ class Hooks
 
         // Prevent XSS
         $finalActionName = '&action_name=' . urlencode($finalActionName);
-        $finalURL = '&url=' . urlencode($_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
+        $finalURL = '&url=' . urlencode($protocol . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
 
         // Matomo script
         $script = <<<MATOMO
