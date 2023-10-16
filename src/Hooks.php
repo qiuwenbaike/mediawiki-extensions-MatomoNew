@@ -147,8 +147,8 @@ class Hooks
 
         // Matomo script
         $script = <<<MATOMO
-		<script>!(function(){var xhr=new XMLHttpRequest();xhr.open('post',"{$protocol}://{$matomoURL}/{$endpoint}?idsite={$idSite}&rec=1&send_image=0{$finalURL}{$finalActionName}{$finalUsername}{$urlTrackingSearch}");xhr.send()})();</script>
-		<noscript><img src="{$protocol}://{$matomoURL}/{$endpoint}?idsite={$idSite}&rec=1&send_image=0{$finalURL}{$finalActionName}{$finalUsername}{$urlTrackingSearch}" width="1" height="1" alt="" /></noscript>
+		<script>!(function(){var a=new XMLHttpRequest();a.open("post","{$protocol}://{$matomoURL}/{$endpoint}?idsite={$idSite}&rec=1&send_image=1{$finalURL}{$finalActionName}{$finalUsername}{$urlTrackingSearch}");a.send()})();</script>
+		<noscript><img src="{$protocol}://{$matomoURL}/{$endpoint}?idsite={$idSite}&rec=1&send_image=1{$finalURL}{$finalActionName}{$finalUsername}{$urlTrackingSearch}" width="1" height="1" alt="" /></noscript>
 		MATOMO;
 
         return $script;
