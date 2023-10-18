@@ -8,7 +8,7 @@
 		"[https://github.com/YOUR1 Youri van den Bogert]",
         "WaitSpring"
 	],
-	"url": "https://www.mediawiki.org/wiki/Extension:Matomo",
+	"url": "https://git.qiuwen.net.cn/Fork/mediawiki-extensions-MatomoNew",
 	"description": "Adding Matomo Tracking Code",
 	"license-name": "GPL-2.0-or-later",
 	"type": "other",

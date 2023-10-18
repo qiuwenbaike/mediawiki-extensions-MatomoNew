@@ -1,17 +1,16 @@
 {
-  "name": "mediawiki/matomo",
+  "name": "mediawiki/matomo-new",
   "type": "mediawiki-extension",
-  "description": "The Matomo (ex-Piwik) extension inserts your Matomo tracking code to the bottom of every page.",
+  "description": "Adding Matomo Tracking Code",
   "keywords": [
     "Piwik",
     "Matomo",
     "MediaWiki"
   ],
-  "homepage": "https://www.mediawiki.org/wiki/Extension:Matomo",
+  "homepage": "https://git.qiuwen.net.cn/Fork/mediawiki-extensions-MatomoNew",
   "license": "GPL-2.0-or-later",
   "support": {
-    "issues": "https://github.com/DaSchTour/piwik-mediawiki-extension/issues",
-    "source": "https://github.com/DaSchTour/piwik-mediawiki-extension"
+    "source": "https://git.qiuwen.net.cn/Fork/mediawiki-extensions-MatomoNew"
   },
   "authors": [
     {
