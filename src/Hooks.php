@@ -1,6 +1,6 @@
 <?php
 
-namespace MediaWiki\Extension\Matomo;
+namespace MediaWiki\Extension\MatomoNew;
 
 use RequestContext;
 
@@ -19,7 +19,7 @@ class Hooks
     /**
      * Initialize the Matomo hook
      *
-     * @param string $skin
+     * @param object $skin
      * @param string &$text
      * @return bool
      */
@@ -82,7 +82,7 @@ class Hooks
 
     /**
      * Add Matomo script
-     * @param string $title
+     * @param object $title
      * @return string
      */
     public static function addMatomo($title)
@@ -154,7 +154,7 @@ class Hooks
 
         // Matomo script
         $script = <<<MATOMO
-		<script>(function(){var a=new XMLHttpRequest();a.open("post","{$protocol}://{$matomoURL}/{$endpoint}?idsite={$idSite}&rec=1&send_image=1{$finalURL}{$finalActionName}{$finalUsername}{$finalURLRef}{$urlTrackingSearch}{$finalRand}");a.send()})();</script>
+		<script>(function(){var a=new XMLHttpRequest;a.open("post","{$protocol}://{$matomoURL}/{$endpoint}?idsite={$idSite}&rec=1&send_image=1{$finalURL}{$finalActionName}{$finalUsername}{$finalURLRef}{$urlTrackingSearch}{$finalRand}");a.send()})();</script>
 		<noscript><img src="{$protocol}://{$matomoURL}/{$endpoint}?idsite={$idSite}&rec=1&send_image=1{$finalURL}{$finalActionName}{$finalUsername}{$finalURLRef}{$urlTrackingSearch}{$finalRand}" width="1" height="1" alt="" /></noscript>
 		MATOMO;
 
