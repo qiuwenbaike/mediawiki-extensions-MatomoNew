@@ -125,6 +125,7 @@ class Hooks
         // Track username based on https://matomo.org/docs/user-id/ The user
         // name for anonymous visitors is their IP address which Matomo already
         // records.
+        $finalUsername = '';
         if (self::getParameter('TrackUsernames') && $user->isRegistered()) {
             $username = $user->getName();
             $finalUsername = '&uid=' . urlencode($username);
@@ -142,6 +143,7 @@ class Hooks
         }
 
         // Check HTTP Referer
+        $finalURLRef = '';
         if (isset($_SERVER['HTTP_REFERER'])) {
             $urlref = $_SERVER['HTTP_REFERER'];
             $finalURLRef = '&urlref=' . urlencode($urlref);
