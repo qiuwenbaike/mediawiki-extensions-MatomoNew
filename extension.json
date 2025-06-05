@@ -1,6 +1,6 @@
 {
 	"name": "MatomoNew",
-	"version": "4.0.2",
+	"version": "4.0.3",
 	"author": [
 		"Isb1009",
 		"[http://www.daschmedia.de DaSch]",
@@ -40,5 +40,5 @@
 	"AutoloadClasses": {
 		"MediaWiki\\Extension\\MatomoNew\\Hooks": "src/Hooks.php"
 	},
-	"manifest_version": 1
+	"manifest_version": 2
 }
