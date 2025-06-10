@@ -1,12 +1,12 @@
 {
 	"name": "MatomoNew",
-	"version": "4.0.3",
+	"version": "4.0.4",
 	"author": [
 		"Isb1009",
 		"[http://www.daschmedia.de DaSch]",
 		"[https://www.mediawiki.org/wiki/User:Seb35 Seb35]",
 		"[https://github.com/YOUR1 Youri van den Bogert]",
-        "WaitSpring"
+		"WaitSpring"
 	],
 	"url": "https://git.qiuwen.net.cn/Fork/mediawiki-extensions-MatomoNew",
 	"description": "Adding Matomo Tracking Code",
@@ -14,17 +14,6 @@
 	"type": "other",
 	"requires": {
 		"MediaWiki": ">= 1.25.0"
-	},
-	"config": {
-		"MatomoIDSite": "",
-        "MatomoProtocol": "auto",
-		"MatomoURL": "",
-        "MatomoEndpoint": "matomo.php",
-        "MatomoIgnoreBots": true,
-		"MatomoUsePageTitle": true,
-		"MatomoActionName": "",
-		"MatomoDisableCookies": false,
-		"MatomoTrackUsernames": false
 	},
 	"Hooks": {
 		"SkinAfterBottomScripts": [
@@ -39,6 +28,45 @@
 	},
 	"AutoloadClasses": {
 		"MediaWiki\\Extension\\MatomoNew\\Hooks": "src/Hooks.php"
+	},
+	"config_prefix": "wgMatomo",
+	"config": {
+		"IDSite": {
+			"value": "",
+			"public": true
+		},
+		"Protocol": {
+			"value": "auto",
+			"public": true
+		},
+		"URL": {
+			"value": "",
+			"public": true
+		},
+		"Endpoint": {
+			"value": ".php",
+			"public": true
+		},
+		"IgnoreBots": {
+			"value": true,
+			"public": true
+		},
+		"UsePageTitle": {
+			"value": true,
+			"public": true
+		},
+		"ActionName": {
+			"value": "",
+			"public": true
+		},
+		"DisableCookies": {
+			"value": false,
+			"public": true
+		},
+		"TrackUsernames": {
+			"value": false,
+			"public": true
+		}
 	},
 	"manifest_version": 2
 }
