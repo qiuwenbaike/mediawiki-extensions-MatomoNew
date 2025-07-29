@@ -2,6 +2,7 @@
 
 namespace MediaWiki\Extension\MatomoNew;
 
+use MediaWiki\MediaWikiServices;
 use RequestContext;
 
 class Hooks
@@ -36,7 +37,7 @@ class Hooks
      */
     public static function getParameter($name)
     {
-        $config = \MediaWiki\MediaWikiServices::getInstance()->getMainConfig();
+        $config = MediaWikiServices::getInstance()->getMainConfig();
         if ($config->has("Piwik$name")) {
             return $config->get("Piwik$name");
         } elseif ($config->has("Matomo$name")) {
