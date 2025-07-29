@@ -1,0 +1,26 @@
+{
+	"name": "matomonew",
+    "private": true,
+    "scripts": {
+        "test": "grunt test",
+        "eslint": "eslint resources/**/*.js",
+        "eslint:fix": "eslint resources/**/*.js --fix",
+		"stylelint": "stylelint resources/**/*.less --custom-syntax postcss-less",
+		"stylelint:fix": "stylelint resources/**/*.less --fix --custom-syntax postcss-less",
+        "lint:js": "eslint resources/**/*.js",
+        "lint:fix:js": "eslint resources/**/*.js --fix",
+		"lint:styles": "stylelint resources/**/*.less --custom-syntax postcss-less",
+		"lint:fix:styles": "stylelint resources/**/*.less --fix --custom-syntax postcss-less"
+    },
+	"devDependencies": {
+		"eslint-config-wikimedia": "^0.31.0",
+		"grunt": "1.6.1",
+		"grunt-banana-checker": "0.13.0",
+		"grunt-eslint": "25.0.0",
+		"stylelint": "16.22.0",
+		"stylelint-config-recess-order": "7.1.0",
+		"stylelint-config-wikimedia": "0.18.0",
+		"stylelint-order": "^7.0.0",
+		"stylelint-plugin-use-baseline": "^0.6.3"
+	}
+}
